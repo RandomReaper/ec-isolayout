@@ -14,6 +14,7 @@
 #include <board/power.h>
 #include <board/pmc.h>
 #include <board/pnp.h>
+#include <board/security.h>
 #include <common/debug.h>
 
 #include <ec/espi.h>
@@ -512,6 +513,11 @@ void power_event(void) {
         // Disable S5 power plane if not needed
         if (power_state == POWER_STATE_S5) {
             power_off();
+
+            // Handle security state changes if necessary
+            if (security_power()) {
+                power_on();
+            }
         }
     }
 
