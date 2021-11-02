@@ -353,7 +353,7 @@ void power_off(void) {
 
 #endif // HAVE_AMD_CPU
 
-#ifdef HAVE_DGPU
+#if defined(POWER_LIMIT_AC) && defined(POWER_LIMIT_DC)
 static bool power_peci_limit(bool ac) {
     uint8_t watts = ac ? POWER_LIMIT_AC : POWER_LIMIT_DC;
     // Set PL4 using PECI
